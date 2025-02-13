@@ -1,6 +1,7 @@
 package com.policy.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -95,5 +96,26 @@ public class InsurancePolicy {
 		return "InsurancePolicy [id=" + id + ", policyName=" + policyName + ", policyType=" + policyType
 				+ ", premiumAmount=" + premiumAmount + ", userId=" + userId + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, policyName, policyType, premiumAmount, userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		InsurancePolicy other = (InsurancePolicy) obj;
+		return Objects.equals(id, other.id) && Objects.equals(policyName, other.policyName)
+				&& Objects.equals(policyType, other.policyType) && Objects.equals(premiumAmount, other.premiumAmount)
+				&& Objects.equals(userId, other.userId);
+	}
+	
+	
 
 }
