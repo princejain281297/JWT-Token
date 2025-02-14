@@ -33,7 +33,7 @@ public class UserController {
 	@PostMapping("/register")
 	public ResponseEntity<String> userRegister(@RequestBody User user){
 		if(userService.userExist(user.getUsername())) {
-			return new ResponseEntity<String>("User Exist...", HttpStatus.ALREADY_REPORTED);
+			return new ResponseEntity<String>("User Exist...", HttpStatus.NOT_ACCEPTABLE);
 		}
 		userService.registerUser(user);
 		return new ResponseEntity<String>("User Registered Successfully", HttpStatus.ACCEPTED);

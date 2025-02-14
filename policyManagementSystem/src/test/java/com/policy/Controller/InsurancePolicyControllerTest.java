@@ -2,33 +2,20 @@ package com.policy.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.policy.controller.InsurancePolicyController;
 import com.policy.entity.InsurancePolicy;
@@ -135,7 +122,6 @@ public class InsurancePolicyControllerTest {
 	@WithMockUser(username = "user", roles = {"USER"})
 	public void testDeletePolicyWithExistPolicy() throws Exception {
 		
-		InsurancePolicy policy = new InsurancePolicy(101l, "Policy1", "Name1", BigDecimal.ONE, 30l);
 		when(insurancePolicyService.deletePolicyById(101l)).thenReturn(false);
 		ResponseEntity<Void> response = insurancePolicyController.deletePolicy(101l);
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -146,7 +132,6 @@ public class InsurancePolicyControllerTest {
 	@WithMockUser(username = "user", roles = {"USER"})
 	public void testDeletePolicyWithOutExistPolicy() throws Exception {
 		
-		InsurancePolicy policy = new InsurancePolicy(101l, "Policy1", "Name1", BigDecimal.ONE, 30l);
 		when(insurancePolicyService.deletePolicyById(101l)).thenReturn(true);
 		ResponseEntity<Void> response = insurancePolicyController.deletePolicy(101l);
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
