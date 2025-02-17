@@ -8,5 +8,8 @@ import com.policy.entity.InsurancePolicy;
 
 @Repository
 public interface InsurancePolicyRepo extends JpaRepository<InsurancePolicy, Long> {
+	
+	
+	
 
 }

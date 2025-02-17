@@ -41,6 +41,13 @@ public class InsurancePolicy {
 		this.premiumAmount = premiumAmount;
 		this.userId = userId;
 	}
+	
+	public InsurancePolicy(String policyName, String policyType, BigDecimal premiumAmount) {
+		super();
+		this.policyName = policyName;
+		this.policyType = policyType;
+		this.premiumAmount = premiumAmount;
+	}
 
 	public InsurancePolicy(Long id, String policyName, String policyType, BigDecimal premiumAmount, Long userId) {
 		super();

@@ -1,6 +1,7 @@
 package com.policy.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Collection;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.policy.controller.UserController;
 import com.policy.dto.AuthRequest;
@@ -57,7 +59,7 @@ public class UserControllerTest {
 	
 	@SuppressWarnings("serial")
 	@Test
-	void loginTest() {
+	void loginTest_isNotAuthenticated() {
 		AuthRequest authRequest = new AuthRequest("user", "pass");
 		when(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())))
 			.thenReturn(new Authentication() {
@@ -74,7 +76,7 @@ public class UserControllerTest {
 				
 				@Override
 				public boolean isAuthenticated() {
-					return true;
+					return false;
 				}
 				
 				@Override
@@ -98,7 +100,9 @@ public class UserControllerTest {
 				}
 			});
 		
-		String token = userController.login(authRequest);
+		assertThrows(UsernameNotFoundException.class, () -> {
+			userController.login(authRequest);
+        });
 		
 	}
 	

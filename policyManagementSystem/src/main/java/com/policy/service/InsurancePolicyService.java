@@ -30,7 +30,11 @@ public class InsurancePolicyService {
 	}
 	
 	public Optional<InsurancePolicy> findPolicyById(Long id) {
-		return insurancePolicyRepo.findById(id);
+		Long userId = getUserIdFromUser();
+		Optional<InsurancePolicy> insurancePolicy = insurancePolicyRepo.findById(id);
+		if(insurancePolicy.isPresent() && userId == insurancePolicy.get().getUserId())
+			return insurancePolicy;
+		return Optional.empty();
 	}
 	
 	public InsurancePolicy saveInsurancePolicy(InsurancePolicy insurancePolicy) {
